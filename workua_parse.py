@@ -4,6 +4,13 @@ from bs4 import BeautifulSoup
 
 class ParseWorkUa:
     def __init__(self, search_pattern, sal_from, sal_to, filename):
+        '''Class do basic parse of workua in Kiev with your search request and fixed salary
+
+        :param search_pattern: for example "junior python" or "бухгалтер"
+        :param sal_from: your required minimum salary
+        :param sal_to: your required maximum salary
+        :param filename: output file, where will be saved your data
+        '''
         self.search_pattern = search_pattern
         self.sal_from = self.get_fine_sallary(sal_from)
         self.sal_to = self.get_fine_sallary(sal_to)
@@ -11,6 +18,11 @@ class ParseWorkUa:
 
     @staticmethod
     def get_fine_sallary(info):
+        '''
+        Change your salary to workua variant
+        :param info: for example 10000 (int) it's in UAH
+        :return: valid salary for workua understanding
+        '''
         variants = ['3000', '5000', '7000', '10000', '15000', '30000', '50000']
         ch = 2
         for i in range(len(variants)-1):
@@ -22,6 +34,10 @@ class ParseWorkUa:
         return 8
 
     def get_page(self, page_number):
+        '''
+        :param page_number: for example 1 (int) WARNING! Don't use it with big int if you're not sure
+        :return: bs4 page
+        '''
         link = f'https://www.work.ua/ru/jobs-kyiv-{self.search_pattern}/?advs=1' \
                f'&salaryfrom={self.sal_from}&salaryto={self.sal_to}&page={page_number}'
         response = get(link)
@@ -30,10 +46,14 @@ class ParseWorkUa:
         if 'Ошибка 404' in str(not_found):
             print('Page not found 404')
             return None
-        # print('LINK: ', link)
         return html_soup
 
     def get_numbers_of_pages(self, page):
+        '''
+        Give you max value of page number for current search request
+        :param page: bs4 page (with current search, for example 1st page)
+        :return: value with max page number (int)
+        '''
         numbers = page.findAll('ul', {'class': 'pagination hidden-xs'})
         try:
             numbers = numbers[0].findChildren('li')
@@ -42,19 +62,26 @@ class ParseWorkUa:
         return int(str(numbers[-2]).split('>')[-3][:-3])
 
     def get_links_from_page(self, page):
+        '''
+        Take all links to vacancies from page
+        :param page: page (bs4)
+        :return: list with links
+        '''
         answ = []
         classes = page.findAll('h2', {'class': ''})
-        # print(classes)
         for i in classes:
             info = i.findChildren('a', recursive=False)
-            # print(info)
             if '"' in str(i):
                 link = str(info).split('"')[1]
-                # print('kekek', link)
                 answ.append('https://www.work.ua' + link)
         return answ
 
     def get_info_via_link(self, link='https://www.work.ua/ru/jobs/3061923/'):
+        '''
+        Takes main info from vacancy page
+        :param link: link to vacancy(str)
+        :return: main vacancy info (dict) !keys you can see in return
+        '''
         response = get(link)
         html_soup = BeautifulSoup(response.content, 'html.parser')
         vacancy = html_soup.findAll('h1', {'class': 'add-top-sm', 'id': 'h1-name'})
@@ -75,6 +102,10 @@ class ParseWorkUa:
                 'place': place, 'req': requirements, 'link': link}
 
     def parse_all_and_save(self):
+        '''
+        Parse all possible pages with current search request for last 30 days. And write it to self.filename
+        :return: None
+        '''
         try:
             with open(self.filename, 'a') as file:
                 pass
@@ -85,22 +116,17 @@ class ParseWorkUa:
         page1 = self.get_page(1)
         max_pages = self.get_numbers_of_pages(page1)
         with open(self.filename, 'a') as file:
-            for i in range(0, max_pages-30):
+            for i in range(0, max_pages):
                 links = self.get_links_from_page(page1)
                 for link in links:
-                    print(f'-> working page: {i+1}')
+                    print(f'-> working! page: {i+1}')
                     info = self.get_info_via_link(link)
                     write_info = f'Vacancy:{info["vac"]}\nPayment:{info["pay"]}\nCompany:{info["company"]}\n' \
                                  f'Place:{info["place"]}\nLink:{info["link"]}\n\n'
                     file.write(write_info)
                 page1 = self.get_page(i+1)
+        return None
 
-
-a = ParseWorkUa('бухгалтер', 10000, 30000, 'save.txt')
-a.parse_all_and_save()
-# b = a.get_page(1)
-# print(b.text)
-# c = a.get_numbers_of_page(b)
-# d = a.get_links_from_page(b)
-# print(a.get_info_via_link('https://www.work.ua/ru/jobs/2272210/'))
-# print(d)
+if __name__ == '__main__':
+    a = ParseWorkUa('python', 10000, 30000, 'save.txt')
+    a.parse_all_and_save()
