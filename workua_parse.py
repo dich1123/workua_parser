@@ -125,6 +125,8 @@ class ParseWorkUa:
                                  f'Place:{info["place"]}\nLink:{info["link"]}\n\n'
                     file.write(write_info)
                 page1 = self.get_page(i+1)
+
+            file.write('\n__FROM_DICH_WITH_LOVE__')
         return None
 
 if __name__ == '__main__':

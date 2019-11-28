@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DiCh WorkUa</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"
+          integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <h2 id="error"> {{ message }} </h2>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<form action="" method="post">
+    <h3>
+        WorkUa Parser!
+    </h3>
+    <label for="search">Search request</label>
+    <input id="search" name="search" type="text" placeholder="Example: 'python', 'бухгалтер', etc">
+    <br>
+    <label for="from">Minimum salary</label>
+    <input id="from" name="from" type="text" placeholder="Example: 5000">
+    <br>
+    <label for="to">Maximum salary</label>
+    <input id="to" name="to" type="text" placeholder="Example: 20000">
+    <br>
+    <button>Get Info</button>
+
+    <h5>
+        Just input your data to this form and wait till your browser download txt file <br>
+        __FROM_DICH_WITH_LOVE__
+    </h5>
+
+</form>
+</body>
+</html>

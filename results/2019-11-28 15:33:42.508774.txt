@@ -1,0 +1,38 @@
+Vacancy:Ретушер
+Payment:12 000 грн
+Company:ERC
+Place:Киев, вулиця Марка Вовчка, 18А.
+Link:https://www.work.ua/ru/jobs/3553932/
+
+Vacancy:Дизайнер, ретушер (SMM)
+Payment:10 000 грн
+Company:Голден Сильвер, ООО
+Place:Киев
+Link:https://www.work.ua/ru/jobs/3756132/
+
+Vacancy:Фотограф-ретушер
+Payment:12 000 – 20 000 грн
+Company:Eventphoto
+Place:Киев, Дніпровська набережна, 33.
+Link:https://www.work.ua/ru/jobs/3743653/
+
+Vacancy:Ретушер
+Payment:12 000 грн
+Company:Irens
+Place:Киев, вулиця Євгена Коновальця, 32Б.
+Link:https://www.work.ua/ru/jobs/3683515/
+
+Vacancy:Фотограф, дизайнер, ретушер
+Payment:12 000 – 18 000 грн
+Company:ElenDekor
+Place:Киев, Харківське шосе, 201/203.
+Link:https://www.work.ua/ru/jobs/1262649/
+
+Vacancy:Ретушер, младший специалист
+Payment:8 000 грн
+Company:Studio52
+Place:Киев, вулиця Дубровицька, 28.
+Link:https://www.work.ua/ru/jobs/370441/
+
+
+__FROM_DICH_WITH_LOVE__

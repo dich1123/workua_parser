@@ -1,0 +1,48 @@
+body{
+    background: #def6ff;
+}
+
+h3{
+    text-align: center;
+    font-weight: bold;
+}
+
+h5{
+    margin: 10px;
+    padding: 10px;
+    background: #ffd596;
+    border-radius: 20px/20px;
+}
+form{
+    margin: 0px auto;
+    width: 500px;
+    height: 450px;
+    background: #fca919;
+    text-align: center;
+}
+
+input{
+    width: 450px;
+    margin: 5px;
+}
+
+label{
+    text-align: center;
+    font-family: monospace;
+    margin: 2px;
+    color: #4e8a50;
+}
+button{
+    margin: 5px;
+    height: 60px;
+    width: 200px;
+}
+button:hover{
+    background: #d1dade;
+}
+
+#error{
+    margin: 0px auto;
+    width: 500px;
+    background: #ff4040;
+}
